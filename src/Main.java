@@ -5,6 +5,9 @@ public class Main
     public static void main(String[] args)
     {
         UrunManager urunManager = new UrunManager();
+        BireyselMusteriManager bireyselMusteriManager = new BireyselMusteriManager();
+        KurumsalMusteriManager kurumsalMusteriManager = new KurumsalMusteriManager();
+
         LocalDate uretimTarihi = LocalDate.of(2023, 10, 5);
         LocalDate sonKullanmaTarihi = LocalDate.of(2024, 10, 5);
 
@@ -57,7 +60,7 @@ public class Main
             elektronik.setFiyat(-20000);
             urunManager.fiyatGuncelle(elektronik);
         }
-        catch (UrunFiyatiNegatifHata e)
+        catch (Hata e)
         {
             System.out.println("Hata: " + e.getMessage());
         }
@@ -75,22 +78,27 @@ public class Main
         urunManager.sayac = UrunManager.getInstanceSayac() + 1;
         System.out.println("Demo Sayacı: " + urunManager.sayac);
 
-        Odeme odeme = new Odeme()
-        {
-            @Override
-            public void odemeYap(double tutar) {
-                System.out.println("Ödeme yapılıyor: " + tutar + " TL");
-            }
-        };
+        OdemeManager odemeManager = new OdemeManager();
+        odemeManager.odemeYap(10);
+        odemeManager.odemeYap(urunManager.toplamTutar);
 
-        odeme.odemeYap(urunManager.toplamTutar);
 
-        // 5. Interface: Sepet işlemleri
+        // Sepet işlemleri
         Sepet sepet = new Sepet();
         sepet.urunEkle(elektronik);
         sepet.urunEkle(kiyafet);
         sepet.urunCikar(elektronik);
         sepet.sepetiBosalt();
+
+        // Bireysel Müşteri
+        bireyselMusteriManager.musteriEkle(bireyselMusteri);
+        bireyselMusteriManager.musteriGuncelle(bireyselMusteri);
+        bireyselMusteriManager.musteriSil(bireyselMusteri);
+
+        //Kurumsal Müşteri
+        kurumsalMusteriManager.musteriEkle(kurumsalMusteri);
+        kurumsalMusteriManager.musteriGuncelle(kurumsalMusteri);
+        kurumsalMusteriManager.musteriSil(kurumsalMusteri);
 
     }
 }

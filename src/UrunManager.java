@@ -26,10 +26,10 @@ public class UrunManager implements IUrunService
         System.out.println("Ürün Güncellendi.");
     }
 
-    public void fiyatGuncelle(Urun urun) throws UrunFiyatiNegatifHata
+    public void fiyatGuncelle(Urun urun) throws Hata
     {
         if (urun.getFiyat() < 0.0)
-            throw new UrunFiyatiNegatifHata("Ürün fiyatı negatif olamaz.");
+            throw new Hata("Ürün fiyatı negatif olamaz.");
         else
             urun.setFiyat(urun.getFiyat());
 
