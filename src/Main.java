@@ -64,11 +64,13 @@ public class Main {
     kiyafet.setUretici("Zara");
     kiyafet.setUretimTarihi(uretimTarihi);
 
+    // Fiyat negatif olamaz fiyatGuncelle metodu bu kontrolü yapıyor.
+    // Eğer fiyat negatifse hata sınıfı hata fırlatıyor ekrana yazdırıyor.
     try {
       elektronik.setFiyat(-20000);
       urunManager.fiyatGuncelle(elektronik);
     } catch (Hata e) {
-      System.out.println("Main.Hata: " + e.getMessage());
+      System.out.println("Hata: " + e.getMessage());
     }
 
     urunManager.urunEkle(elektronik);
